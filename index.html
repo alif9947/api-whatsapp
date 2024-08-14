@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div class="body"></div>
+    <div class="grad"></div>
+    <div class="header">
+      <div>untuk<span>absensi</span></div>
+    </div>
+    <br />
+    <div class="login">
+      <form action="components/proses_tampilan.php" method="post">
+        <input type="text" placeholder="Nama" name="name" required />
+        <br /><br />
+        <textarea name="address" id="" placeholder="Alamat" required></textarea>
+        <input type="number" placeholder="No Hp" name="phone" required /><br />
+        <br />
+        <input
+          type="text"
+          placeholder="Kelas Anda"
+          name="kelas"
+          required
+        /><br />
+        <input
+          type="number"
+          placeholder="Masukan Absen"
+          name="no_absen"
+          required
+        /><br />
+        <input type="submit" value="submit" />
+      </form>
+    </div>
+    <script src="components/main.js"></script>
+  </body>
+</html>
