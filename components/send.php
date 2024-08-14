@@ -1,32 +1,41 @@
 <?php
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $name = $_POST['name'];
-    $address = $_POST['address'];
-    $phone = $_POST['phone'];
 
-    $curl = curl_init();
+$curl = curl_init();
 
-    curl_setopt_array($curl, array(
-        CURLOPT_URL => 'https://api.fonnte.com/send',
-        CURLOPT_RETURNTRANSFER => true,
-        CURLOPT_ENCODING => '',
-        CURLOPT_MAXREDIRS => 10,
-        CURLOPT_TIMEOUT => 0,
-        CURLOPT_FOLLOWLOCATION => true,
-        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-        CURLOPT_CUSTOMREQUEST => 'POST',
-        CURLOPT_POSTFIELDS => array(
-            'target' => $phone,
-            'message' => "Nama: $name\nAlamat: $address",
-            'countryCode' => '62', //optional
-        ),
-        CURLOPT_HTTPHEADER => array(
-            'Authorization: YOUR_API_KEY' //ganti YOUR_API_KEY dengan API key Anda
-        ),
-    ));
+curl_setopt_array($curl, array(
+  CURLOPT_URL => 'https://api.fonnte.com/send',
+  CURLOPT_RETURNTRANSFER => true,
+  CURLOPT_ENCODING => '',
+  CURLOPT_MAXREDIRS => 10,
+  CURLOPT_TIMEOUT => 0,
+  CURLOPT_FOLLOWLOCATION => true,
+  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+  CURLOPT_CUSTOMREQUEST => 'POST',
+  CURLOPT_POSTFIELDS => array(
+'target' => '08123456789|Fonnte|Admin,08123456789|Lili|User',
+'message' => 'test message to {name} as {var1}',
+'url' => 'https://md.fonnte.com/images/wa-logo.png',
+'filename' => 'filename',
+'schedule' => 0,
+'typing' => false,
+'delay' => '2',
+'countryCode' => '62',
+'file' => new CURLFile("localfile.jpg"),
+'location' => '-7.983908, 112.621391',
+'followup' => 0,
+),
+  CURLOPT_HTTPHEADER => array(
+    'Authorization: TOKEN'
+  ),
+));
 
-    $response = curl_exec($curl);
-    curl_close($curl);
-    echo $response;
+$response = curl_exec($curl);
+if (curl_errno($curl)) {
+  $error_msg = curl_error($curl);
 }
-?>
+curl_close($curl);
+
+if (isset($error_msg)) {
+ echo $error_msg;
+}
+echo $response;
