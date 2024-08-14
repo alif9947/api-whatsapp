@@ -9,6 +9,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     header("location: index.html");
     exit(); // Perbaikan dari exit():
 }
+
+include'send.php';
 ?>
 
 <!DOCTYPE html>
