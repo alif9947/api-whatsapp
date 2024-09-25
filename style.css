@@ -112,7 +112,33 @@ body {
   padding: 4px;
   margin-top: 10px;
 }
+.login input[type="email"] {
+  width: 250px;
+  height: 30px;
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  border-radius: 2px;
+  color: #fff;
+  font-family: "Exo", sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  padding: 4px;
+  margin-top: 10px;
+}
 
+.login input[type="date"] {
+  width: 250px;
+  height: 30px;
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  border-radius: 2px;
+  color: #fff;
+  font-family: "Exo", sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  padding: 4px;
+  margin-top: 10px;
+}
 .login input[type="submit"] {
   width: 260px;
   height: 35px;
@@ -128,6 +154,10 @@ body {
   margin-top: 10px;
 }
 
+.login input[type="date"]:focus {
+  outline: none;
+  border: 1px solid rgba(255, 255, 255, 0.9);
+}
 .login input[type="submit"]:hover {
   opacity: 0.8;
 }

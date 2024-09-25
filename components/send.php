@@ -1,8 +1,13 @@
 <?php
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $name = $_POST['name']; 
+    $nisn = $_POST['nisn']; // Menambahkan NISN
     $address = $_POST['address'];
     $phone = $_POST['phone'];
+    $email = $_POST['email'];
+    $kelas = $_POST['kelas']; // Menambahkan Kelas
+    $no_absen = $_POST['no_absen']; // Menambahkan No Absen
+    $tanggal = date('Y-m-d'); // Menambahkan tanggal saat ini
 
     $curl = curl_init();
 
@@ -17,11 +22,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         CURLOPT_CUSTOMREQUEST => 'POST',
         CURLOPT_POSTFIELDS => array(
             'target' => $phone,
-            'message' => "Nama: $name\nAlamat: $address",
-            'countryCode' => '62', //optional
+            'message' => "
+            \nNama: $name
+            \nNISN: $nisn
+            \nNo Absen: $no_absen
+            \nKelas: $kelas
+            \nEmail: $email
+            \nAlamat: $address
+            \nTanggal: $tanggal", // Menambahkan semua informasi ke dalam pesan
+            'countryCode' => '62', // optional
         ),
         CURLOPT_HTTPHEADER => array(
-            'Authorization: mn7#JGs13N7f7aH#yM+S' //ganti YOUR_API_KEY dengan API key Anda
+            'Authorization: BLYZ6syx3q8g3W7PW5HN' // ganti YOUR_API_KEY dengan API key Anda
         ),
     ));
 
