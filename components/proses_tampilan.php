@@ -12,12 +12,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $phone = htmlspecialchars($_POST['phone']);
     $address = htmlspecialchars($_POST['address']);
     date_default_timezone_set('Asia/Jakarta');
-$tanggal_daftar = date('Y-m-d H:i:s');
+    $tanggal_daftar = date('Y-m-d H:i:s');
     $nisn = htmlspecialchars($_POST['nisn']);
+    $rfid = htmlspecialchars($_POST['rfid']);
 
-    // Prepare the SQL statement with nisn column
-    $sql = "INSERT INTO siswa (name, no_absen, kelas, email, phone, address, tanggal_daftar, nisn)
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+    // Prepare the SQL statement with RFID included
+    $sql = "INSERT INTO siswa (name, no_absen, kelas, email, phone, address, tanggal_daftar, nisn, rfid)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
     // Prepare statement
     $stmt = $conn->prepare($sql);
@@ -25,8 +26,8 @@ $tanggal_daftar = date('Y-m-d H:i:s');
         die("Error preparing statement: " . $conn->error);
     }
 
-    // Bind parameters with nisn
-    $stmt->bind_param("ssssssss", $name, $no_absen, $kelas, $email, $phone, $address, $tanggal_daftar, $nisn);
+    // Bind parameters with RFID included
+    $stmt->bind_param("sssssssss", $name, $no_absen, $kelas, $email, $phone, $address, $tanggal_daftar, $nisn, $rfid);
 
     // Execute and check for errors
     if ($stmt->execute()) {
@@ -117,6 +118,7 @@ $result = $conn->query($sql);
             <th>Email</th>
             <th>Telepon</th>
             <th>Alamat</th>
+            <th>RFID</th>
             <th>Tanggal Daftar</th>
             <th>Aksi</th>
         </tr>
@@ -132,7 +134,8 @@ $result = $conn->query($sql);
                 echo "<td>" . $row["kelas"] . "</td>";
                 echo "<td>" . $row["email"] . "</td>";
                 echo "<td>" . $row["phone"] . "</td>"; // Use the correct column name
-                echo "<td>" . $row["address"] . "</td>"; // Use the correct column name
+                echo "<td>" . $row["address"] . "</td>";
+                echo "<td>" . $row["rfid"] . "</td>"; // Display RFID
                 echo "<td>" . $row["tanggal_daftar"] . "</td>";
                 echo "<td>
                         <a href='edit.php?id=" . $row['id'] . "'>Edit</a> |
@@ -141,7 +144,7 @@ $result = $conn->query($sql);
                 echo "</tr>";
             }
         } else {
-            echo "<tr><td colspan='10'>No records found</td></tr>";
+            echo "<tr><td colspan='11'>No records found</td></tr>";
         }
 
         // Close the database connection

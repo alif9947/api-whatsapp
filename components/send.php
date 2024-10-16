@@ -8,6 +8,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $kelas = $_POST['kelas']; // Menambahkan Kelas
     $no_absen = $_POST['no_absen']; // Menambahkan No Absen
     $tanggal = date('Y-m-d'); // Menambahkan tanggal saat ini
+    $rfid = $_POST['rfid']; // Menambahkan RFID
 
     $curl = curl_init();
 
@@ -29,15 +30,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             \nKelas: $kelas
             \nEmail: $email
             \nAlamat: $address
-            \nTanggal: $tanggal", // Menambahkan semua informasi ke dalam pesan
+            \nRFID: $rfid
+            \nTanggal: $tanggal", // Menambahkan RFID ke dalam pesan
             'countryCode' => '62', // optional
         ),
         CURLOPT_HTTPHEADER => array(
-            'Authorization: BLYZ6syx3q8g3W7PW5HN' // ganti YOUR_API_KEY dengan API key Anda
+            'Authorization:-' // ganti YOUR_API_KEY dengan API key Anda
         ),
     ));
 
-    $response = curl_exec($curl);
+    $response = curl_exec($curl);      
     curl_close($curl);
     echo $response;
 }

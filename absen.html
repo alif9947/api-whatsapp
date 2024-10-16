@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Absensi</title>
+    <link rel="stylesheet" href="style.css" />
+    <style>
+      /* style.css */
+
+      /* Mengatur tampilan container di tengah halaman */
+      body,
+      html {
+        height: 100%;
+        margin: 0;
+        font-family: Arial, sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #f4f4f4;
+      }
+
+      .container {
+        background-color: white;
+        padding: 40px;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        width: 100%;
+        max-width: 400px;
+        text-align: center;
+      }
+
+      h1 {
+        margin-bottom: 20px;
+        font-size: 24px;
+        color: #333;
+      }
+
+      .absensi-form {
+        width: 100%;
+      }
+
+      /* Gaya untuk input RFID */
+      .absensi-form input[type="text"] {
+        width: 100%;
+        padding: 12px;
+        margin-bottom: 20px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        font-size: 16px;
+        box-sizing: border-box;
+        transition: border-color 0.3s ease;
+      }
+
+      .absensi-form input[type="text"]:focus {
+        border-color: #007bff;
+        outline: none;
+      }
+
+      /* Gaya untuk tombol */
+      .absensi-form button {
+        width: 100%;
+        padding: 12px;
+        background-color: #007bff;
+        border: none;
+        border-radius: 5px;
+        color: white;
+        font-size: 16px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+      }
+
+      .absensi-form button:hover {
+        background-color: #0056b3;
+      }
+
+      /* Gaya untuk pesan respon */
+      .response {
+        margin-top: 20px;
+        color: #333;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Absensi</h1>
+      <div class="absensi-form">
+        <form id="absensiForm" action="absensi.php" method="POST">
+          <label for="rfid">Scan Kartu RFID:</label>
+          <input
+            type="text"
+            id="rfid"
+            name="rfid"
+            placeholder="Masukan kode RFID"
+            required
+            autofocus
+          />
+          <button type="submit">Absen</button>
+        </form>
+        <div id="response" class="response">
+          <!-- Hasil absensi ditampilkan di sini jika ada -->
+        </div>
+      </div>
+    </div>
+
+    <script src="main.js"></script>
+  </body>
+</html>
