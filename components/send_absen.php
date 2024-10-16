@@ -10,7 +10,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $waktu = date('H:i:s');   // Format hanya waktu
 
     // Cek apakah siswa dengan RFID tersebut ada di database
-    $query_siswa = "SELECT id FROM siswa WHERE rfid = '$rfid'";
+    $query_siswa = "SELECT id, phone, name FROM siswa WHERE rfid = '$rfid'"; // Menambahkan kolom phone dan name
     $result_siswa = mysqli_query($conn, $query_siswa);
 
     if ($result_siswa === false) {
@@ -20,6 +20,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (mysqli_num_rows($result_siswa) > 0) {
         $row_siswa = mysqli_fetch_assoc($result_siswa);
         $id_siswa = $row_siswa['id'];
+        $phone = $row_siswa['phone']; // Ambil nomor telepon siswa
+        $name = $row_siswa['name']; // Ambil nama siswa
 
         // Cek apakah sudah ada catatan absen pada hari ini
         $query_absen = "SELECT * FROM absen WHERE id_siswa = '$id_siswa' AND DATE(tanggal) = CURDATE()";
@@ -34,6 +36,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $insert_query = "INSERT INTO absen (id_siswa, tanggal, waktu_masuk, status_masuk) VALUES ('$id_siswa', '$tanggal', '$waktu', 'Hadir')";
             if (mysqli_query($conn, $insert_query)) {
                 echo "Absensi masuk berhasil tercatat!";
+                // Mengirim pesan
+                $message = "Halo $name, absensi masuk Anda pada $tanggal jam $waktu telah tercatat.";
+                sendMessage($phone, $message); // Panggil fungsi untuk mengirim pesan
             } else {
                 echo "Error saat memasukkan data absen: " . mysqli_error($conn);
             }
@@ -46,6 +51,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $update_query = "UPDATE absen SET waktu_pulang = '$waktu', status_pulang = 'Pulang' WHERE id_siswa = '$id_siswa' AND DATE(tanggal) = CURDATE()";
                 if (mysqli_query($conn, $update_query)) {
                     echo "Absensi pulang berhasil tercatat!";
+                    // Mengirim pesan
+                    $message = "Halo $name, absensi pulang Anda pada $tanggal jam $waktu telah tercatat.";
+                    sendMessage($phone, $message); // Panggil fungsi untuk mengirim pesan
                 } else {
                     echo "Error saat mengupdate data absen: " . mysqli_error($conn);
                 }
@@ -60,5 +68,32 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     mysqli_close($conn);
 }
+
+// Fungsi untuk mengirim pesan menggunakan cURL
+function sendMessage($phone, $message) {
+    $curl = curl_init();
+
+    curl_setopt_array($curl, array(
+        CURLOPT_URL => 'https://api.fonnte.com/send',
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_ENCODING => '',
+        CURLOPT_MAXREDIRS => 10,
+        CURLOPT_TIMEOUT => 0,
+        CURLOPT_FOLLOWLOCATION => true,
+        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+        CURLOPT_CUSTOMREQUEST => 'POST',
+        CURLOPT_POSTFIELDS => array(
+            'target' => $phone,
+            'message' => $message,
+            'countryCode' => '62', // optional
+        ),
+        CURLOPT_HTTPHEADER => array(
+            'Authorization: BLYZ6syx3q8g3W7PW5HN' // Ganti dengan API key Anda
+        ),
+    ));
+
+    $response = curl_exec($curl);      
+    curl_close($curl);
+    return $response; // Mengembalikan respon dari API
+}
 ?>
-                                                                              

@@ -1,33 +1,58 @@
-@import url(https://fonts.googleapis.com/css?family=Exo:100,200,400);
-@import url(https://fonts.googleapis.com/css?family=Source+Sans+Pro:700,400,300);
+/* Import Google Fonts */
+@import url("https://fonts.googleapis.com/css?family=Exo:100,200,400&display=swap");
+@import url("https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700&display=swap");
 
-body {
-  margin: 0;
-  padding: 0;
-  background: #fff;
-  color: #fff;
-  font-family: Arial, sans-serif;
-  font-size: 12px;
+/* CSS Variables for Easy Theme Management */
+:root {
+  --primary-color: #5379fa;
+  --secondary-color: #007bff;
+  --secondary-hover: #0056b3;
+  --background-color: #fff;
+  --text-color: #fff;
+  --input-border: rgba(255, 255, 255, 0.6);
+  --input-border-focus: rgba(255, 255, 255, 0.9);
+  --button-text-color: #a18d6c;
+  --button-background: #fff;
 }
 
+/* Reset and Base Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Source Sans Pro", sans-serif;
+  font-size: 16px;
+  color: var(--text-color);
+  background-color: var(--background-color);
+  position: relative;
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* Background Image with Blur */
 .body {
   position: absolute;
   top: -20px;
   left: -20px;
   right: -40px;
   bottom: -40px;
-  background-image: url(http://ginva.com/wp-content/uploads/2012/07/city-skyline-wallpapers-008.jpg);
+  background-image: url("http://ginva.com/wp-content/uploads/2012/07/city-skyline-wallpapers-008.jpg");
   background-size: cover;
-  -webkit-filter: blur(5px);
+  background-position: center;
+  filter: blur(5px);
   z-index: 0;
 }
 
+/* Gradient Overlay */
 .grad {
   position: absolute;
-  top: -20px;
-  left: -20px;
-  right: -40px;
-  bottom: -40px;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
   background: linear-gradient(
     to bottom,
     rgba(0, 0, 0, 0) 0%,
@@ -37,66 +62,75 @@ body {
   opacity: 0.7;
 }
 
+/* Header Styling */
 .header {
   position: absolute;
-  top: calc(50% - 35px);
-  left: calc(50% - 255px);
+  top: 20%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   z-index: 2;
+  text-align: center;
 }
 
 .header div {
-  float: left;
-  color: #fff;
   font-family: "Exo", sans-serif;
   font-size: 35px;
   font-weight: 200;
+  color: #fff;
 }
 
 .header div span {
-  color: #5379fa !important;
+  color: var(--primary-color);
 }
 
+/* Login Form Styling */
 .login {
   position: absolute;
-  top: calc(50% - 75px);
-  left: calc(50% - 50px);
-  height: auto;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   width: 350px;
-  padding: 10px;
+  padding: 20px;
+  background: rgba(0, 0, 0, 0.4);
+  border-radius: 10px;
   z-index: 2;
+}
+
+.login form {
+  display: flex;
+  flex-direction: column;
 }
 
 .login input,
 .login textarea {
   width: 100%;
-  height: 30px;
+  padding: 10px 15px;
+  margin: 10px 0;
   background: transparent;
-  border: 1px solid rgba(255, 255, 255, 0.6);
-  border-radius: 2px;
+  border: 1px solid var(--input-border);
+  border-radius: 5px;
   color: #fff;
-  font-family: "Exo", sans-serif;
   font-size: 16px;
-  font-weight: 400;
-  padding: 4px;
-  margin-top: 10px;
+  font-family: "Exo", sans-serif;
 }
 
-.login input[type="submit"] {
-  width: 100%;
-  height: 35px;
-  background: #fff;
-  border: 1px solid #fff;
-  cursor: pointer;
-  border-radius: 2px;
-  color: #a18d6c;
-  padding: 6px;
+.login textarea {
+  resize: none;
+  height: 80px;
 }
 
 .login input:focus,
-.login textarea:focus,
-.login input[type="submit"]:focus {
+.login textarea:focus {
+  border-color: var(--input-border-focus);
   outline: none;
-  border: 1px solid rgba(255, 255, 255, 0.9);
+}
+
+.login input[type="submit"] {
+  background: var(--button-background);
+  color: var(--button-text-color);
+  border: none;
+  cursor: pointer;
+  transition: opacity 0.3s ease;
 }
 
 .login input[type="submit"]:hover {
@@ -107,95 +141,87 @@ body {
   opacity: 0.6;
 }
 
-/* Placeholder styling */
-::-webkit-input-placeholder {
+/* Placeholder Styling */
+::placeholder {
   color: rgba(255, 255, 255, 0.6);
+  opacity: 1; /* Firefox */
 }
 
-::-moz-input-placeholder {
-  color: rgba(255, 255, 255, 0.6);
+/* Remove Spin Buttons for Number Inputs */
+input[type="number"] {
+  -moz-appearance: textfield;
 }
 
-/* Remove spin buttons for number input fields */
 input[type="number"]::-webkit-outer-spin-button,
 input[type="number"]::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
 
-input {
-  -moz-appearance: textfield;
-}
-
-/* Button container */
-.button-container {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  cursor: pointer;
-}
-
+/* Navigate Button Styling */
 .navigate-button {
+  display: inline-block;
+  margin-top: 15px;
   padding: 10px 15px;
-  background-color: #007bff;
-  color: white;
+  background-color: var(--secondary-color);
+  color: var(--background-color);
   border: none;
   border-radius: 5px;
   text-decoration: none;
+  text-align: center;
+  font-family: "Exo", sans-serif;
   cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
 .navigate-button:hover {
-  background-color: #0056b3;
+  background-color: var(--secondary-hover);
 }
 
-/* Media Queries for Responsiveness */
-@media screen and (max-width: 768px) {
-  .header {
-    left: calc(50% - 175px);
-  }
+/* Footer Text Styling */
+.footer-text {
+  position: absolute;
+  bottom: 20px;
+  width: 100%;
+  text-align: center;
+  color: #fff;
+  z-index: 2;
+  font-size: 14px;
+}
 
+/* Responsive Design */
+@media screen and (max-width: 768px) {
   .header div {
     font-size: 30px;
   }
 
   .login {
-    top: calc(50% - 200px);
-    left: calc(50% - 150px);
     width: 300px;
+    padding: 15px;
   }
 
-  .login input,
-  .login textarea {
+  .navigate-button {
     width: 100%;
-  }
-
-  .login input[type="submit"] {
-    width: 100%;
+    padding: 10px;
   }
 }
 
 @media screen and (max-width: 480px) {
-  .header {
-    left: calc(50% - 125px);
-  }
-
   .header div {
     font-size: 25px;
   }
 
   .login {
-    top: calc(50% - 150px);
-    left: calc(50% - 100px);
     width: 250px;
+    padding: 10px;
   }
 
-  .login input,
-  .login textarea {
-    width: 100%;
+  .navigate-button {
+    padding: 8px;
+    font-size: 14px;
   }
 
-  .login input[type="submit"] {
-    width: 100%;
+  .footer-text {
+    font-size: 12px;
   }
 }

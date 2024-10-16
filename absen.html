@@ -79,14 +79,16 @@
         margin-top: 20px;
         color: #333;
       }
+      .rfid-label {
+      }
     </style>
   </head>
   <body>
     <div class="container">
-      <h1>Absensi</h1>
+      <h1>Absensi dengan Kartu RFID</h1>
       <div class="absensi-form">
-        <form id="absensiForm" action="absensi.php" method="POST">
-          <label for="rfid">Scan Kartu RFID:</label>
+        <form id="absensiForm" action="components/absensi.php" method="POST">
+          <label class="rfid-label" for="rfid">Scan Kartu RFID:</label>
           <input
             type="text"
             id="rfid"
