@@ -1,7 +1,7 @@
 <?php
 // Include the database connection file
 include 'koneksi.php';
-include 'send.php';
+// include 'send.php';
 
 // Handle form submission and insert data into the database
 if ($_SERVER["REQUEST_METHOD"] == "POST") {

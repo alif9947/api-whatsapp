@@ -88,7 +88,7 @@ function sendMessage($phone, $message) {
             'countryCode' => '62', // optional
         ),
         CURLOPT_HTTPHEADER => array(
-            'Authorization: BLYZ6syx3q8g3W7PW5HN' // Ganti dengan API key Anda
+            'Authorization: ' // Ganti dengan API key Anda
         ),
     ));
 
